@@ -40,6 +40,11 @@
 @media(max-width:470px){
     .drawer{
         width: 100%;
+        .drawer-layout{
+            width: 100%;
+            height: 100%;
+            padding: 30px 16px;
+        }
     }
 }
 
