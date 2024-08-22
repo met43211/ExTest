@@ -7,11 +7,15 @@ export const getChartData = (data: TTransaction[]) => {
       new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
   );
 
-  const hours = sorted.map((transaction) =>
+  const filtered = sorted.filter(
+    (transaction) => transaction.type === "WRITE_OFF"
+  );
+
+  const hours = filtered.map((transaction) =>
     transaction.created_at.slice(11, 16)
   );
 
-  const values = sorted.map((transaction) => transaction.amount);
+  const values = filtered.map((transaction) => transaction.amount);
 
   const chart: TChartData = {
     labels: hours,
