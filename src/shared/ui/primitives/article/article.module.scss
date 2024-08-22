@@ -21,3 +21,16 @@
         padding:0px;
     }
 }
+
+@media(max-width:720px){
+    .article{
+        border-radius: 0px;
+        .title{
+            padding: 18px 16px;
+            border-bottom: 1px solid $border;
+        }
+        .content{
+            padding: 18px 16px;
+        }
+    }
+}

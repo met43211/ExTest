@@ -31,7 +31,7 @@ export const Pagination = ({ pages }: Props) => {
     }
   };
 
-  if (!pages) {
+  if (pages < 2) {
     return null;
   }
   return (
