@@ -1,0 +1,23 @@
+@import '@/src/shared/ui/scss-variables/variables';
+
+.article{
+    border-radius: 18px;
+    background-color: $base-color;
+    .title{
+        padding: 24px 34px;
+        border-bottom: 1px solid $border;
+    }
+    .content{
+        padding: 24px 34px;
+    }
+}
+.drawer{
+    border-radius: 0px;
+    .title{
+        padding: 18px 0px;
+        border-bottom: 0px;
+    }
+    .content{
+        padding:0px;
+    }
+}

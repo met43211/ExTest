@@ -1,0 +1,25 @@
+@import '@/src/shared/ui/scss-variables/variables';
+
+.line{
+    width: 100%;
+    height: 1px;
+    background-color: $border;
+}
+.red{
+    color: rgba(254, 66, 66, 1)
+}
+.green{
+    color: rgba(26, 187, 52, 1)
+}
+
+.table-container{
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+.chart{
+    margin-top: 20px;
+}

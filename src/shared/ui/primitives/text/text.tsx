@@ -1,0 +1,31 @@
+import { ReactNode } from "react";
+import styles from "./text.module.scss";
+
+type Props = {
+  children: ReactNode;
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
+  className?: string;
+  opacity?: number;
+  size?: number;
+  weight?: number;
+};
+
+export const Text = ({
+  children,
+  tag = "p",
+  className,
+  opacity = 1,
+  size,
+  weight = 500,
+}: Props) => {
+  const Tag = tag;
+
+  return (
+    <Tag
+      className={`${styles.text} ${className ? className : ""}`}
+      style={{ opacity, fontSize: size, fontWeight: weight }}
+    >
+      {children}
+    </Tag>
+  );
+};

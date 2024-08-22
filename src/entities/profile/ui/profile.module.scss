@@ -1,0 +1,21 @@
+
+.profile{
+  display: flex;
+  align-items: center;
+  .icon{
+    margin-right: 12px;
+  }
+  .text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .status{
+      color: rgba(97, 109, 141, 1);
+    }
+  }
+}
+@media(max-width:720px){
+  .profile{
+      display: none;
+  }
+}

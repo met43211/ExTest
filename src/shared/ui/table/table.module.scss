@@ -1,0 +1,29 @@
+@import "@/src/shared/ui/scss-variables/variables";
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    .title{
+        background-color: rgba(14, 12, 21, 1);
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+    .title:last-child{
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .title:first-child{
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    td{
+        text-align: center;
+        border-bottom: 1px solid $border;
+        .button{
+            padding-top: 23px;
+            padding-bottom: 23px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

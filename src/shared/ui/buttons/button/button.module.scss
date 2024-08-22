@@ -1,0 +1,23 @@
+@import "@/src/shared/ui/scss-variables/variables";
+
+.button{
+    padding: 8px 14px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer
+}
+.icon-only{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 6px;
+}
+.primary{
+    background-color: $primary;
+}
+.secondary{
+    border: 1px solid $border;
+}

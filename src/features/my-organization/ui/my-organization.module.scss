@@ -1,0 +1,14 @@
+.organization{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    background-color: rgba(0, 0, 0, 0);
+    border:none;
+    text-wrap: nowrap;
+    .icon{
+        padding: 4px;
+        background-color: rgba(34, 43, 68, 1);
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+}

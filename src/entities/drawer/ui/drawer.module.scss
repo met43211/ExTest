@@ -1,0 +1,47 @@
+@import "@/src/shared/ui/scss-variables/variables";
+
+
+.drawer-wrapper{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.7);
+    top:0;
+    left:0;
+    border: none;
+}
+.drawer{
+    position: fixed;
+    top:0;
+    right: 0;
+    z-index: 20;
+    width: 470px;
+    height: 100%;
+    background-color: $base-color;
+    .drawer-layout{
+        width: 100%;
+        height: 100%;
+        padding: 56px 40px 20px 20px;
+        .drawer-header{
+            justify-content: space-between;
+        }
+        .drawer-content{
+            overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .drawer-content::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+@media(max-width:470px){
+    .drawer{
+        width: 100%;
+    }
+}
+
+
+

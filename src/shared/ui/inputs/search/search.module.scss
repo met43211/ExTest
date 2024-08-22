@@ -1,0 +1,22 @@
+@import "@/src/shared/ui/scss-variables/variables";
+.input{
+    width: 100%;
+    position: relative;
+    .icon{
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .search{
+        width: 100%;
+        padding: 14px 16px 14px 42px;
+        border: 1px solid $light-border;
+        outline: none;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .search::placeholder{
+        color: $light-border;
+    }
+}
