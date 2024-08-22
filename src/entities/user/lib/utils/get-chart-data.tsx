@@ -1,3 +1,4 @@
+import { formatDate } from "@/src/shared/lib/utils/format-date";
 import { TChartData } from "../../model/chart-data.type";
 import { TTransaction } from "../../model/transaction.type";
 
@@ -12,7 +13,7 @@ export const getChartData = (data: TTransaction[]) => {
   );
 
   const hours = filtered.map((transaction) =>
-    transaction.created_at.slice(11, 16)
+    formatDate(transaction.created_at).slice(11, 17)
   );
 
   const values = filtered.map((transaction) => transaction.amount);
