@@ -30,8 +30,8 @@ export const CanvasChart = ({ time, values }: Props) => {
         const xScale = (width - paddingRight) / (time.length - 1);
 
         ctx.textAlign = "start";
-        ctx.lineWidth = 1;
-        ctx.font = `60px Arial`;
+        ctx.lineWidth = 5;
+        ctx.font = `bold 60px Arial`;
         ctx.fillStyle = "rgba(97, 109, 141, 1)";
         ctx.strokeStyle = "rgba(34, 43, 68, 1)";
 
@@ -51,7 +51,7 @@ export const CanvasChart = ({ time, values }: Props) => {
           ctx.lineTo(width - paddingRight, y);
           ctx.stroke();
           ctx.fillText(
-            Math.round(i).toString(),
+            Math.round(i).toLocaleString(),
             width - paddingRight + 50,
             y + 5
           );

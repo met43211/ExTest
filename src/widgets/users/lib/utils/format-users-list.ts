@@ -5,8 +5,8 @@ export const formatUsersList = (users: TUser[]): TFormattedUser[] => {
     id: user.id,
     email: user.email,
     name: user.name,
-    role: user.role,
+    role: user.role.toUpperCase(),
     subscription: user.subscription.plan.type,
-    tokens: user.subscription.tokens + "TKN",
+    tokens: user.subscription.tokens + " TKN",
   }));
 };

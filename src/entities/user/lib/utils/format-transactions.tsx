@@ -22,7 +22,7 @@ export const formatTransactions = (
       >
         {transaction.type === "WRITE_OFF" && "- "}
         {transaction.type === "REPLENISH" && "+ "}
-        {transaction.amount} {transaction.currency}
+        {transaction.amount.toLocaleString()} {transaction.currency}
       </Text>
     ),
     created_at: formatDate(transaction.created_at),
