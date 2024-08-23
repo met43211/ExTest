@@ -34,7 +34,7 @@ export const Users = () => {
 
   return (
     <>
-      <Text tag="h4" size={22} weight={600}>
+      <Text tag="h4" size={22} weight={600} className={styles.title}>
         Пользователи
       </Text>
       <SearchUser />
