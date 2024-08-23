@@ -34,9 +34,7 @@ export const User = ({ id, email }: TUser) => {
   return (
     <DrawerLayout title={email}>
       <Article title="Использование токенов" isDrawer>
-        <Flex col className={styles["chart"]}>
-          <ExpensesChart data={chartData} />
-        </Flex>
+        <ExpensesChart data={chartData} />
       </Article>
       <div className={styles.line} />
       <Article title="История операций" isDrawer>
