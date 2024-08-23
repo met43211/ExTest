@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
-import { formatDate } from "../../lib/utils/format-date";
+import { formatDate } from "@/src/shared/lib/utils/format-date";
+import React, { useRef, useEffect } from "react";
 
 type Props = {
   time: number[];
   values: number[];
 };
 
-const CanvasChart = ({ time, values }: Props) => {
+export const CanvasChart = ({ time, values }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -25,18 +25,18 @@ const CanvasChart = ({ time, values }: Props) => {
         const yMax = Math.max(...values);
         const yMin = Math.min(...values);
         const yRange = yMax - yMin;
-        const yScale = (height - paddingBottom) / yRange;
+        const yScale = (height - paddingBottom - 150) / yRange;
 
         const xScale = (width - paddingRight) / (time.length - 1);
 
-        ctx.strokeStyle = "rgba(34, 43, 68, 1)";
         ctx.textAlign = "start";
         ctx.lineWidth = 1;
         ctx.font = `60px Arial`;
         ctx.fillStyle = "rgba(97, 109, 141, 1)";
+        ctx.strokeStyle = "rgba(34, 43, 68, 1)";
 
         for (let i = 0; i < time.length; i += Math.ceil(time.length / 5)) {
-          const x = i * xScale;
+          const x = (i * (width - xScale)) / (time.length - 1);
           ctx.fillText(
             formatDate(time[i]).slice(11, 17),
             x,
@@ -82,7 +82,7 @@ const CanvasChart = ({ time, values }: Props) => {
         ctx.fill();
 
         ctx.strokeStyle = "rgba(28, 100, 242, 1)";
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 15;
         ctx.lineJoin = "round";
         ctx.lineCap = "round";
 
@@ -102,5 +102,3 @@ const CanvasChart = ({ time, values }: Props) => {
 
   return <canvas ref={canvasRef} height={1200} width={2000} />;
 };
-
-export default CanvasChart;

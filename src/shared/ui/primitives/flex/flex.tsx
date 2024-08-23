@@ -44,7 +44,7 @@ export const Flex = ({
 
   return (
     <Tag
-      className={`${styles.flex} ${center ? styles.flex : ""} ${justifyCenter ? styles.justify : ""} ${wrap ? styles.wrap : ""} ${className}`}
+      className={`${styles.flex} ${center ? styles.center : ""} ${justifyCenter ? styles.justify : ""} ${wrap ? styles.wrap : ""} ${className}`}
       style={
         !editable
           ? { flexDirection: col ? "column" : direction, gap: gap * 4, width }

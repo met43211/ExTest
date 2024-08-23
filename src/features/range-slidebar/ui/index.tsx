@@ -1,7 +1,7 @@
-import React, { useState, useRef, useCallback } from "react";
-import styles from "./range-picker.module.scss";
-import { Text } from "../primitives/text/text";
-import { formatDate } from "../../lib/utils/format-date";
+import { useState, useRef, useCallback, useEffect } from "react";
+import styles from "./range-slidebar.module.scss";
+import { Text } from "@/src/shared/ui/primitives/text/text";
+import { formatDate } from "@/src/shared/lib/utils/format-date";
 
 type Props = {
   minValue: number;
@@ -12,7 +12,7 @@ type Props = {
   max: number;
 };
 
-const RangePicker = ({
+export const RangeSlidebar = ({
   minValue,
   setMinValue,
   maxValue,
@@ -23,23 +23,25 @@ const RangePicker = ({
   const [dragging, setDragging] = useState<"min" | "max" | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent, type: "min" | "max") => {
+  const handleDragStart = useCallback(
+    (e: React.MouseEvent | React.TouchEvent, type: "min" | "max") => {
       e.preventDefault();
       setDragging(type);
     },
     []
   );
 
-  const handleMouseUp = useCallback(() => {
+  const handleDragEnd = useCallback(() => {
     setDragging(null);
   }, []);
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
+  const handleDragMove = useCallback(
+    (e: MouseEvent | TouchEvent) => {
       if (dragging && sliderRef.current) {
         const rect = sliderRef.current.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
+        const clientX =
+          e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+        const offsetX = clientX - rect.left;
         const newValue = Math.min(
           Math.max((offsetX / rect.width) * (max - min) + min, min),
           max
@@ -55,15 +57,19 @@ const RangePicker = ({
     [dragging, maxValue, minValue, max, min, setMinValue, setMaxValue]
   );
 
-  React.useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+  useEffect(() => {
+    window.addEventListener("mousemove", handleDragMove);
+    window.addEventListener("mouseup", handleDragEnd);
+    window.addEventListener("touchmove", handleDragMove);
+    window.addEventListener("touchend", handleDragEnd);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleDragMove);
+      window.removeEventListener("mouseup", handleDragEnd);
+      window.removeEventListener("touchmove", handleDragMove);
+      window.removeEventListener("touchend", handleDragEnd);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handleDragMove, handleDragEnd]);
 
   const minPercent = ((minValue - min) / (max - min)) * 100;
   const maxPercent = ((maxValue - min) / (max - min)) * 100;
@@ -81,7 +87,8 @@ const RangePicker = ({
         <div
           className={styles["slider-thumb"]}
           style={{ left: `${minPercent}%` }}
-          onMouseDown={(e) => handleMouseDown(e, "min")}
+          onMouseDown={(e) => handleDragStart(e, "min")}
+          onTouchStart={(e) => handleDragStart(e, "min")}
         >
           <Text size={12} weight={400} className={styles["start-text"]}>
             {formatDate(minValue).slice(11, 17)}
@@ -91,7 +98,8 @@ const RangePicker = ({
         <div
           className={styles["slider-thumb"]}
           style={{ left: `${maxPercent}%` }}
-          onMouseDown={(e) => handleMouseDown(e, "max")}
+          onMouseDown={(e) => handleDragStart(e, "max")}
+          onTouchStart={(e) => handleDragStart(e, "max")}
         >
           <Text size={12} weight={400} className={styles["end-text"]}>
             {formatDate(maxValue).slice(11, 17)}
@@ -101,5 +109,3 @@ const RangePicker = ({
     </div>
   );
 };
-
-export default RangePicker;

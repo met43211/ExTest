@@ -5,11 +5,6 @@
     background-color: $base-color;
     border-radius: 17px;
     justify-content: space-between;
-    .header-left{
-        .logo{
-            line-height: 50px;
-        }
-    }
 }
 @media(max-width:720px){
     .header{

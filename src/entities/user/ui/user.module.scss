@@ -20,3 +20,15 @@
 .table-container::-webkit-scrollbar {
     display: none;
 }
+.email{
+    .square{
+        background-color: rgba(28, 100, 242, 1);
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        margin-right: -5px;
+    }
+    p{
+        color: rgba(97, 109, 141, 1);
+    }
+}

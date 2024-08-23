@@ -9,8 +9,9 @@ import { TransactionTitles } from "../config/transaction-titles";
 import { useEffect, useState } from "react";
 import { Flex } from "@/src/shared/ui/primitives/flex/flex";
 import { formatTransactions } from "../lib/utils/format-transactions";
-import CanvasChart from "@/src/shared/ui/canvas-chart/canvas-chart";
-import RangeSlider from "@/src/shared/ui/range-slidebar/range-slidebar";
+import { CanvasChart } from "../../canvas-chart";
+import { Text } from "@/src/shared/ui/primitives/text/text";
+import { RangeSlidebar } from "@/src/features/range-slidebar";
 
 export const User = ({ id, email }: TUser) => {
   const [transactions, setTransactions] = useState<TFormattedTransaction[]>([]);
@@ -67,7 +68,7 @@ export const User = ({ id, email }: TUser) => {
         {data ? (
           <>
             <CanvasChart time={hState} values={vState} />
-            <RangeSlider
+            <RangeSlidebar
               minValue={minValue}
               maxValue={maxValue}
               setMinValue={setMinValue}
@@ -75,6 +76,10 @@ export const User = ({ id, email }: TUser) => {
               min={min}
               max={max}
             />
+            <Flex className={styles.email} center justifyCenter>
+              <div className={styles.square} />
+              <Text size={12}>{email}</Text>
+            </Flex>
           </>
         ) : null}
       </Article>
