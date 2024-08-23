@@ -51,7 +51,7 @@ export const CanvasChart = ({ time, values }: Props) => {
           ctx.lineTo(width - paddingRight, y);
           ctx.stroke();
           ctx.fillText(
-            Math.round(i).toLocaleString(),
+            Math.round(i).toLocaleString("fr"),
             width - paddingRight + 50,
             y + 5
           );
