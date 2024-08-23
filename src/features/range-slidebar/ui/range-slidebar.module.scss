@@ -41,6 +41,16 @@
       }
     }
   }
+
+@media(max-width: 720px){
+  .range-picker{
+    .slider{
+      .slider-thumb{
+        width: 15px;
+      }
+    }
+  }
+}
   
   
   

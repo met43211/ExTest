@@ -23,23 +23,25 @@ export const RangeSlidebar = ({
   const [dragging, setDragging] = useState<"min" | "max" | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent, type: "min" | "max") => {
+  const handleDragStart = useCallback(
+    (e: React.MouseEvent | React.TouchEvent, type: "min" | "max") => {
       e.preventDefault();
       setDragging(type);
     },
     []
   );
 
-  const handleMouseUp = useCallback(() => {
+  const handleDragEnd = useCallback(() => {
     setDragging(null);
   }, []);
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
+  const handleDragMove = useCallback(
+    (e: MouseEvent | TouchEvent) => {
       if (dragging && sliderRef.current) {
         const rect = sliderRef.current.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
+        const clientX =
+          e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+        const offsetX = clientX - rect.left;
         const newValue = Math.min(
           Math.max((offsetX / rect.width) * (max - min) + min, min),
           max
@@ -52,18 +54,27 @@ export const RangeSlidebar = ({
         }
       }
     },
-    [dragging, maxValue, minValue, max, min, setMinValue, setMaxValue]
+    [dragging, maxValue, minValue, min, max, setMaxValue, setMinValue]
   );
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => handleDragMove(e);
+    const handleMouseUp = () => handleDragEnd();
+    const handleTouchMove = (e: TouchEvent) => handleDragMove(e);
+    const handleTouchEnd = () => handleDragEnd();
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handleDragMove, handleDragEnd]);
 
   const minPercent = ((minValue - min) / (max - min)) * 100;
   const maxPercent = ((maxValue - min) / (max - min)) * 100;
@@ -81,7 +92,8 @@ export const RangeSlidebar = ({
         <div
           className={styles["slider-thumb"]}
           style={{ left: `${minPercent}%` }}
-          onMouseDown={(e) => handleMouseDown(e, "min")}
+          onMouseDown={(e) => handleDragStart(e, "min")}
+          onTouchStart={(e) => handleDragStart(e, "min")}
         >
           <Text size={12} weight={400} className={styles["start-text"]}>
             {formatDate(minValue).slice(11, 17)}
@@ -91,7 +103,8 @@ export const RangeSlidebar = ({
         <div
           className={styles["slider-thumb"]}
           style={{ left: `${maxPercent}%` }}
-          onMouseDown={(e) => handleMouseDown(e, "max")}
+          onMouseDown={(e) => handleDragStart(e, "max")}
+          onTouchStart={(e) => handleDragStart(e, "max")}
         >
           <Text size={12} weight={400} className={styles["end-text"]}>
             {formatDate(maxValue).slice(11, 17)}
